@@ -25,27 +25,19 @@ services:
       - key: PORT
         value: 80
       
-      # Conexión a Base de Datos (Mapeada automáticamente desde la base de datos de Render)
+      # Conexión a Base de Datos Externa (Supabase / Neon)
       - key: DB_CONNECTION
         value: pgsql
       - key: DB_HOST
-        fromDatabase:
-          name: fitflow-db
-          property: host
+        sync: false # Configurar en el panel de Render
       - key: DB_PORT
-        value: 5432
+        value: "6543" # Puerto recomendado de pooler de Supabase (o 5432)
       - key: DB_DATABASE
-        fromDatabase:
-          name: fitflow-db
-          property: database
+        sync: false # Configurar en el panel de Render
       - key: DB_USERNAME
-        fromDatabase:
-          name: fitflow-db
-          property: user
+        sync: false # Configurar en el panel de Render
       - key: DB_PASSWORD
-        fromDatabase:
-          name: fitflow-db
-          property: password
+        sync: false # Configurar en el panel de Render
 
       - key: CACHE_DRIVER
         value: file
@@ -75,13 +67,3 @@ services:
       - type: rewrite
         source: /*
         destination: /index.html
-
-# -----------------------------------------------------------------------------
-# 3. PostgreSQL Managed Database
-# -----------------------------------------------------------------------------
-databases:
-  - name: fitflow-db
-    plan: free
-    databaseName: fitflow_gym
-    user: fitflow_admin
-    ipAllowList: [] # Solo accesible internamente por el backend
