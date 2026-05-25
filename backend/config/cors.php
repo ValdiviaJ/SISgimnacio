@@ -1,5 +1,20 @@
 <?php
 
+$allowedOrigins = ['http://localhost:3000', 'http://127.0.0.1:3000', 'http://localhost:5173'];
+
+if ($envOrigins = env('ALLOWED_ORIGINS')) {
+    $allowedOrigins = array_merge($allowedOrigins, explode(',', $envOrigins));
+}
+
+// Permitir dinámicamente cualquier subdominio de onrender.com o vercel.app para evitar problemas de CORS
+if (isset($_SERVER['HTTP_ORIGIN'])) {
+    $origin = $_SERVER['HTTP_ORIGIN'];
+    $host = parse_url($origin, PHP_URL_HOST);
+    if ($host && (str_ends_with($host, '.onrender.com') || str_ends_with($host, '.vercel.app'))) {
+        $allowedOrigins[] = $origin;
+    }
+}
+
 return [
 
     /*
@@ -19,7 +34,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => explode(',', env('ALLOWED_ORIGINS', 'http://localhost:3000,http://127.0.0.1:3000')),
+    'allowed_origins' => array_values(array_unique($allowedOrigins)),
 
     'allowed_origins_patterns' => [],
 
