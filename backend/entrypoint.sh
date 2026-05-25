@@ -15,12 +15,12 @@ for (\$i = 0; \$i < 30; \$i++) {
         \$dbReady = true;
         break;
     } catch (Exception \$e) {
-        echo 'Intento ' . (\$i + 1) . ': Base de datos no disponible. Reintentando en 3 segundos...\n';
+        file_put_contents('php://stderr', 'Intento ' . (\$i + 1) . ' fallo: ' . \$e->getMessage() . PHP_EOL);
         sleep(3);
     }
 }
 if (!\$dbReady) {
-    echo 'No se pudo conectar a la base de datos. Saliendo...\n';
+    file_put_contents('php://stderr', 'No se pudo conectar a la base de datos. Saliendo...' . PHP_EOL);
     exit(1);
 }
 "
