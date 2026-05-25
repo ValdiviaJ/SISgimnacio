@@ -11,6 +11,9 @@ for (\$i = 0; \$i < 30; \$i++) {
         \$dbname = getenv('DB_DATABASE');
         \$user = getenv('DB_USERNAME');
         \$pass = getenv('DB_PASSWORD');
+        
+        file_put_contents('php://stderr', 'Conectando a ' . \$host . ':' . \$port . ' db=' . \$dbname . ' user=' . \$user . PHP_EOL);
+        
         \$pdo = new PDO('pgsql:host=' . \$host . ';port=' . \$port . ';dbname=' . \$dbname, \$user, \$pass);
         \$dbReady = true;
         break;
