@@ -61,7 +61,7 @@ services:
     envVars:
       # URL pública de la API en Render para el navegador del cliente
       - key: VITE_API_URL
-        value: https://fitflow-api.onrender.com/api/v1
+        value: https://fitflow-api-1fte.onrender.com/api/v1
     routes:
       # Regla para evitar errores 404 de React Router al recargar páginas secundarias
       - type: rewrite
