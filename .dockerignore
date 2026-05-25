@@ -1,0 +1,13 @@
+node_modules
+npm-debug.log
+yarn-error.log
+.git
+.github
+.env
+backend/vendor
+backend/storage/*.key
+backend/.phpunit.result.cache
+backend/bootstrap/cache/*
+frontend/dist
+docker-compose.override.yml
+.docker/
